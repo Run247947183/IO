@@ -1,0 +1,122 @@
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
+public class FileInputStreamTest {
+
+    // 文件流
+    public static void test1() {
+        try {
+            // 相对路径
+            System.out.println(System.getProperty("user.dir"));
+            File f = new File("E:\\idea\\java12\\io-learnig\\src\\test1.txt");
+            System.out.println(f.exists());
+            FileInputStream fis = new FileInputStream(f);
+            // 读取一个比特，一个字节
+            byte[] bytes = new byte[1024];
+            int len = 0;
+            // 固定写法
+            // 读取到最后会返回一个 -1
+            // 否则就一直读取
+            while ((len = fis.read(bytes)) != -1) {
+                // 从 0 开始读，读到 len 长度
+                String s = new String(bytes, 0, len);
+                System.out.println(s);
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 缓冲字节流
+    public static void test2() {
+        try {
+            // 相对路径
+            System.out.println(System.getProperty("user.dir"));
+            File f = new File("E:\\idea\\java12\\io-learnig\\src\\test1.txt");
+            System.out.println(f.exists());
+            FileInputStream fis = new FileInputStream(f);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            // 读取一个比特，一个字节
+            byte[] bytes = new byte[1024];
+            int len = 0;
+            // 固定写法
+            // 读取到最后会返回一个 -1
+            // 否则就一直读取
+            while ((len = bis.read(bytes)) != -1) {
+                // 从 0 开始读，读到 len 长度
+                String s = new String(bytes, 0, len);
+                System.out.println(s);
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 缓冲字符流
+    public static void test3() {
+        try {
+            // 相对路径
+            System.out.println(System.getProperty("user.dir"));
+            File f = new File("E:\\idea\\java12\\io-learnig\\src\\test1.txt");
+            System.out.println(f.exists());
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            // 有点类似于 Scanner 读取
+            String s;
+            while ((s = br.readLine()) != null) {
+                System.out.println(s);
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 写入
+    public static void test4() {
+        try {
+            // 相对路径
+            System.out.println(System.getProperty("user.dir"));
+            File f = new File("E:\\idea\\java12\\io-learnig\\src\\test1.txt");
+            System.out.println(f.exists());
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            // 先写到缓冲区
+            // \n 是换行操作
+            bw.write("1 = 123\n");
+            bw.write("唐诗");
+            // 表示新建一行
+            bw.newLine();
+            bw.write("宋词");
+            // 写完之后就可以调用到文件里了
+            // 刷新到文件里去
+            bw.flush();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void test5() {
+        try {
+            // 相对路径
+            File f = new File("E:\\QQ\\test.txt");
+            System.out.println(f.exists());
+            FileInputStream fis = new FileInputStream(f);
+            InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+            char[] chars = new char[1024];
+            int len = 0;
+            while ((len = isr.read(chars)) != -1) {
+                System.out.println(new String(chars, 0, len));
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+//        test1();
+//        test2();
+//        test3();
+//        test4();
+        test5();
+    }
+}
